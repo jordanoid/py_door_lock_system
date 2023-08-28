@@ -20,6 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'qr_decoder = py_door_lock_system.qr_decoder_node:main',
         ],
     },
 )
