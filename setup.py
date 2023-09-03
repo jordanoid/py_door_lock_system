@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'qr_decoder = py_door_lock_system.qr_decoder_node:main',
+            'lock_service = py_door_lock_system.lock_service_node:main'
         ],
     },
 )
