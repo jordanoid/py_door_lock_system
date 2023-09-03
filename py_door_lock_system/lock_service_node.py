@@ -18,7 +18,7 @@ class LockService(Node):
     def lock_service_callback(self, request, response):
         self.get_logger().info("Door Open")
         # GPIO.output(relay_gpio, True)
-        # time.sleep(5)
+        time.sleep(5)
         # GPIO.output(relay_gpio, False)
         return response
 

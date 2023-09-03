@@ -26,6 +26,9 @@ class QRDecoder(Node):
             qr_msg = String()
             qr_msg.data = data_read
             self.qrdata_pub.publish(qr_msg)
+        # else:
+        #     qr_msg.data = ""
+        #     self.qrdata_pub.publish(qr_msg)
         
         cv2.imshow("camera", frame)
         cv2.waitKey(1)

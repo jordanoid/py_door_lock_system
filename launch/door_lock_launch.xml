@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="py_door_lock_system" exec="qr_decoder" name="qr_decoder_node"/>
+    <node pkg="py_door_lock_system" exec="authenticator" name="authenticator_node"/>
+    <node pkg="py_door_lock_system" exec="lock_service" name="lock_service_node"/>
+</launch>
