@@ -2,6 +2,7 @@
 
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 import cv2
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
@@ -11,9 +12,14 @@ from pyzbar.pyzbar import decode
 class QRDecoder(Node):
     def __init__(self):
         super().__init__('QR_decoder_node')
-        self.image_sub = self.create_subscription(Image, '/image_raw', self.decode_callback, 10)
+        qos_profile = QoSProfile(
+            realibility=ReliabilityPolicy.BEST_EFFORT,
+            history=HistoryPolicy.KEEP_LAST,
+            depth=1
+        )
+        self.image_sub = self.create_subscription(Image, '/image_raw', self.decode_callback, qos_profile=qos_profile)
         self.image_sub
-        self.qrdata_pub = self.create_publisher(String, 'camera/qrdata', 10)
+        self.qrdata_pub = self.create_publisher(String, 'camera/qrdata', qos_profile=qos_profile)
         self.bridge = CvBridge()
         
     def decode_callback(self, msg):
