@@ -13,7 +13,7 @@ class QRDecoder(Node):
     def __init__(self):
         super().__init__('QR_decoder_node')
         qos_profile = QoSProfile(
-            realibility=ReliabilityPolicy.BEST_EFFORT,
+            reliability=ReliabilityPolicy.BEST_EFFORT,
             history=HistoryPolicy.KEEP_LAST,
             depth=1
         )
