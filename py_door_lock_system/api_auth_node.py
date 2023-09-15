@@ -14,7 +14,7 @@ class Authenticator(Node):
             history=HistoryPolicy.KEEP_LAST,
             depth=1
         )
-        self.qrdata_sub = self.create_subscription(String, 'camera/qrdata', self.qrdata_callback, qos_profile=qos_profile)
+        self.qrdata_sub = self.create_subscription(String, 'qrdata', self.qrdata_callback, qos_profile=qos_profile)
         self.qrdata_sub
         self.lock_sub = self.create_subscription(Bool, 'lock_state', self.lock_state_callback, qos_profile=qos_profile)
         self.client = self.create_client(Empty, 'trigger_lock')

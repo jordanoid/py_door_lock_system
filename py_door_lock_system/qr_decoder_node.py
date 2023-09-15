@@ -19,7 +19,7 @@ class QRDecoder(Node):
         )
         self.image_sub = self.create_subscription(Image, '/image_raw', self.decode_callback, qos_profile=qos_profile)
         self.image_sub
-        self.qrdata_pub = self.create_publisher(String, 'camera/qrdata', qos_profile=qos_profile)
+        self.qrdata_pub = self.create_publisher(String, 'qrdata', qos_profile=qos_profile)
         self.bridge = CvBridge()
         
     def decode_callback(self, msg):

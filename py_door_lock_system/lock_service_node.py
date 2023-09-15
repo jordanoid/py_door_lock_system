@@ -8,7 +8,7 @@ from std_msgs.msg import Bool
 import RPi.GPIO as GPIO
 import time
 
-relay_gpio = 16
+relay_gpio = 23
 
 class LockService(Node):
     def __init__(self):
@@ -21,17 +21,17 @@ class LockService(Node):
         self.srv = self.create_service(Empty, "trigger_lock", self.lock_service_callback)
         self.lock_pub = self.create_publisher(Bool, "lock_state", qos_profile=qos_profile)
         self.lock_state = Bool()
-        GPIO.setmode(GPIO.BOARD)
+        GPIO.setmode(GPIO.BCM)
         GPIO.setup(relay_gpio, GPIO.OUT)
 
     def lock_service_callback(self, request, response):
         self.get_logger().info("Door Open")
-        GPIO.output(relay_gpio, True)
+        GPIO.output(relay_gpio, GPIO.HIGH)
         self.lock_state.data = False
         self.lock_pub.publish(self.lock_state)
         time.sleep(3)
         self.get_logger().info("Door Close")
-        GPIO.output(relay_gpio, False)
+        GPIO.output(relay_gpio, GPIO.LOW)
         self.lock_state.data = True
         self.lock_pub.publish(self.lock_state)
         return response

@@ -28,6 +28,7 @@ setup(
             'qr_decoder = py_door_lock_system.qr_decoder_node:main',
             'lock_service = py_door_lock_system.lock_service_node:main',
             'authenticator = py_door_lock_system.api_auth_node:main',
+            'scanner_data = py_door_lock_system.scanner_data_node:main',
         ],
     },
 )
