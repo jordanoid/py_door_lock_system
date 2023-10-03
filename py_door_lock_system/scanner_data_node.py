@@ -5,6 +5,7 @@ from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
 from std_msgs.msg import String
 import threading
+import serial
 
 class Scanner(Node):
     def __init__(self):
@@ -18,13 +19,17 @@ class Scanner(Node):
         
 
     def data_publish(self):
-        while True:
-            data_read = input("Scan hre")
-            qr_msg = String()
-            qr_msg.data = data_read
-            self.qrdata_pub.publish(qr_msg)
-            self.get_logger().info("MSG Published")
-        
+        try:
+            ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)  # Adjust the port and baud rate as needed
+            data = ser.readline()
+            if data:
+                decoded_data = data.decode('utf-8')
+                self.qrdata_pub.publish(decoded_data)
+        except serial.SerialException as e:
+            rclpy.get_logger().error(f"SerialException: {e}")
+        finally:
+            if ser.is_open:
+                ser.close()
 def main(args=None):
     rclpy.init(args=args)
     
